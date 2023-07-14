@@ -9,16 +9,21 @@ const data = parseLines('advent/04-CampCleanUp/data.txt', true).map((x) =>
 
 export function DayFour() {
   const length = data.filter((set) => {
-    const roomOneStart = +set[0]
-    const roomOneEnd = +set[1]
-    const roomTwoStart = +set[2]
-    const roomTwoEnd = +set[3]
+    const item1 = +set[0]
+    const item2 = +set[1]
+    const item3 = +set[2]
+    const item4 = +set[3]
 
-    const roomOneCoversRoomTwo = roomOneStart <= roomTwoStart && roomOneEnd >= roomTwoEnd
-    const roomTwoCoversRoomOne = roomTwoStart <= roomOneStart && roomTwoEnd >= roomOneEnd
+    const roomOneCoversRoomTwo = item1 <= item3 && item2 >= item4
+    const roomTwoCoversRoomOne = item3 <= item1 && item4 >= item2
 
-    return roomOneCoversRoomTwo || roomTwoCoversRoomOne
+    const firstIsCovered = item1 <= item3 && item2 >= item3
+    const secondIsCovered = item2 >= item4 && item1 <= item4
+
+    // return roomOneCoversRoomTwo || roomTwoCoversRoomOne // part one
+    return firstIsCovered || secondIsCovered || roomOneCoversRoomTwo || roomTwoCoversRoomOne // part two
   }).length
 
-  console.log('Your total score for part one is: ', length)
+  // console.log('Your total score for part one is: ', length)
+  console.log('Your total score for part two is: ', length)
 }
